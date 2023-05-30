@@ -20,6 +20,7 @@ colnames(EiMybs_clean) <- c('GenId', "Trophozoites", "8_h_en","24_h_en","48_h_en
                             "72_h_en", "2_h_ex","8_h_ex")
 EiMybs_clean <- EiMybs_clean[,2:8]
 EiMybs_log2 = log2(EiMybs_clean + 1)
+write.csv(EiMybs_log2,"EiMybsLog.csv")
 boxplot(EiMybs_log2, las = 3)
 #<< == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> 
 EiMbysOrdered <- EiMybs_clean[order(-EiMybs_clean$Trophozoites),]
@@ -29,9 +30,11 @@ random_genes_EiMybs = sample(rownames(EiMybs_clean),NS )
 head(random_genes_EiMybs)
 #<< == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> 
 sampledEiMybs_Log2 <- EiMybs_log2[random_genes_EiMybs, ]; #View(sampledEiMybs_Log2)
+write.csv(sampledEiMybs_Log2,"SampledEiMybsLog.csv")
 pheatmap(EiMybs_log2[random_genes_EiMybs, ])
 EiMybs_log2_filtrado <- EiMybs_log2[rowSums(EiMybs_log2) != 0, ]; #View(EiMybs_log2_filtrado)
 pheatmap(EiMybs_log2_filtrado, scale = "row")
+write.csv(EiMybs_log2_filtrado,"EiMybsLogFiltrado.csv")
 #<< == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> << == >> 
 my_colors = brewer.pal(n = 11, name = "RdBu")
 my_colors = colorRampPalette(my_colors)(50)
